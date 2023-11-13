@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book List</title>
+  <style>
+    .book {
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Book List</h1>
+
+<ul id="bookList">
+  <li class="book" onclick="toggleColor(this)">Book 1</li>
+  <li class="book" onclick="toggleColor(this)">Book 2</li>
+  <li class="book" onclick="toggleColor(this)">Book 3</li>
+</ul>
+
+<script>
+  function toggleColor(book) {
+    var currentColor = getComputedStyle(book).backgroundColor;
+
+    if (currentColor === 'rgb(0, 128, 0)') {
+      book.style.backgroundColor = '';
+    } else {
+      book.style.backgroundColor = 'green';
+    }
+  }
+</script>
+
+</body>
+</html>

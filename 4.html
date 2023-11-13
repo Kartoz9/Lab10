@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit and Delete Blocks</title>
+  <style>
+    .block {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      position: relative;
+    }
+
+    .editBtn, .deleteBtn {
+      cursor: pointer;
+      color: blue;
+      margin-right: 10px;
+    }
+
+    .editing {
+      border: 2px solid blue;
+    }
+  </style>
+</head>
+<body>
+
+<div class="block" id="block1">
+  <p>This is block 1.</p>
+  <button class="editBtn" onclick="editBlock('block1')">Edit</button>
+  <button class="deleteBtn" onclick="deleteBlock('block1')">Delete</button>
+</div>
+
+<div class="block" id="block2">
+  <p>This is block 2.</p>
+  <button class="editBtn" onclick="editBlock('block2')">Edit</button>
+  <button class="deleteBtn" onclick="deleteBlock('block2')">Delete</button>
+</div>
+
+<script>
+  function deleteBlock(blockId) {
+    var block = document.getElementById(blockId);
+    block.parentNode.removeChild(block);
+  }
+
+  function editBlock(blockId) {
+    var block = document.getElementById(blockId);
+    var paragraph = block.querySelector('p');
+    var editBtn = block.querySelector('.editBtn');
+    var deleteBtn = block.querySelector('.deleteBtn');
+
+    var isEditing = block.classList.contains('editing');
+
+    if (isEditing) {
+      paragraph.textContent = textarea.value;
+      block.classList.remove('editing');
+      editBtn.textContent = 'Edit';
+      textarea.parentNode.removeChild(textarea);
+    } else {
+      block.classList.add('editing');
+      editBtn.textContent = 'Save';
+      var textarea = document.createElement('textarea');
+      textarea.value = paragraph.textContent;
+      block.insertBefore(textarea, deleteBtn);
+      textarea.focus();
+
+      textarea.addEventListener('blur', function() {
+        block.classList.remove('editing');
+        editBtn.textContent = 'Edit';
+        paragraph.textContent = textarea.value;
+        textarea.parentNode.removeChild(textarea);
+      });
+    }
+  }
+</script>
+
+</body>
+</html>

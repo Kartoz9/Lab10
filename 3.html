@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Palette</title>
+  <style>
+    .palette {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .color {
+      width: 30px;
+      height: 30px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .rectangle {
+      width: 300px;
+      height: 150px;
+      margin: 10px 0;
+      border: 1px solid #000;
+      background: linear-gradient(to right, #ffffff, #ffffff);
+    }
+  </style>
+</head>
+<body>
+
+<div class="palette" id="colorPalette">
+  <div class="color" style="background-color: #ff0000;" onclick="toggleColor('#ff0000')"></div>
+  <div class="color" style="background-color: #00ff00;" onclick="toggleColor('#00ff00')"></div>
+  <div class="color" style="background-color: #0000ff;" onclick="toggleColor('#0000ff')"></div>
+</div>
+
+<div class="rectangle" id="coloredRectangle"></div>
+
+<script>
+  var selectedColors = [];
+
+  function toggleColor(color) {
+    var index = selectedColors.indexOf(color);
+
+    if (index === -1) {
+      selectedColors.push(color);
+    } else {
+      selectedColors.splice(index, 1);
+    }
+
+    updateRectangle();
+  }
+
+  function updateRectangle() {
+    var rectangle = document.getElementById("coloredRectangle");
+    var gradient = "linear-gradient(to right,";
+
+    if (selectedColors.length === 0) {
+      rectangle.style.background = gradient + "#ffffff, #ffffff)";
+    } else if (selectedColors.length === 1) {
+      rectangle.style.background = gradient + selectedColors[0] + ", " + selectedColors[0] + ")";
+    } else {
+      for (var i = 0; i < selectedColors.length; i++) {
+        gradient += selectedColors[i];
+
+        if (i !== selectedColors.length - 1) {
+          gradient += ", ";
+        }
+      }
+
+      gradient += ")";
+      rectangle.style.background = gradient;
+    }
+  }
+</script>
+
+</body>
+</html>

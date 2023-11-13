@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coloring Squares</title>
+  <style>
+    .palette {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .color {
+      width: 30px;
+      height: 30px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .canvas {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      gap: 2px;
+    }
+
+    .square {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="palette" id="colorPalette">
+  <div class="color" style="background-color: #ff0000;" onclick="selectColor('#ff0000')"></div>
+  <div class="color" style="background-color: #00ff00;" onclick="selectColor('#00ff00')"></div>
+  <div class="color" style="background-color: #0000ff;" onclick="selectColor('#0000ff')"></div>
+</div>
+
+<div class="canvas" id="colorCanvas">
+</div>
+
+<script>
+  var selectedColor = null;
+
+  function selectColor(color) {
+    selectedColor = color;
+  }
+
+  function fillSquare(square) {
+    square.style.backgroundColor = selectedColor;
+  }
+
+  var canvas = document.getElementById("colorCanvas");
+  for (var i = 0; i < 100; i++) {
+    var square = document.createElement("div");
+    square.className = "square";
+    square.addEventListener("click", function() {
+      fillSquare(this);
+    });
+    canvas.appendChild(square);
+  }
+</script>
+
+</body>
+</html>

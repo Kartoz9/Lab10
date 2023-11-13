@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum Page</title>
+  <style>
+    #messages {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .message {
+      border: 1px solid #ccc;
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Forum</h1>
+
+<ul id="messages">
+</ul>
+
+<form id="messageForm">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" required><br>
+
+  <label for="message">Message:</label>
+  <textarea id="message" name="message" required></textarea><br>
+
+  <input type="button" value="Add Message" onclick="addMessage()">
+</form>
+
+<script>
+  function addMessage() {
+    var username = document.getElementById("username").value;
+    var messageText = document.getElementById("message").value;
+
+    if (username.trim() === "" || messageText.trim() === "") {
+      alert("Please enter both username and message.");
+      return;
+    }
+
+    var messagesList = document.getElementById("messages");
+
+    var messageItem = document.createElement("li");
+    messageItem.className = "message";
+
+    var messageContent = document.createElement("p");
+    messageContent.textContent = `${username}: ${messageText}`;
+
+    messageItem.appendChild(messageContent);
+    messagesList.appendChild(messageItem);
+
+    document.getElementById("username").value = "";
+    document.getElementById("message").value = "";
+  }
+</script>
+
+</body>
+</html>

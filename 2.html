@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binary Squares</title>
+  <style>
+    .square {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      margin: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<textarea id="binaryInput" rows="5" cols="30"></textarea>
+<button onclick="generateSquares()">Generate Squares</button>
+<div id="outputSquares"></div>
+
+<script>
+  function generateSquares() {
+    var binaryInput = document.getElementById("binaryInput").value;
+
+    var outputContainer = document.getElementById("outputSquares");
+
+    outputContainer.innerHTML = "";
+
+    if (binaryInput.trim() === "") {
+      alert("Введіть значення в textarea.");
+      return;
+    }
+
+    var binaryArray = binaryInput.split("");
+
+    for (var i = 0; i < binaryArray.length; i++) {
+      var square = document.createElement("div");
+      square.className = "square";
+      square.style.backgroundColor = binaryArray[i] === "0" ? "black" : "white";
+      outputContainer.appendChild(square);
+    }
+  }
+</script>
+
+</body>
+</html>

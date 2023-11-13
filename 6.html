@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flipping Cards</title>
+  <style>
+    .card {
+      width: 100px;
+      height: 150px;
+      perspective: 1000px;
+      margin: 10px;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      background-color: #e0e0e0;
+      border: 1px solid #ccc;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner">
+    <div class="card-face">A</div>
+    <div class="card-face back">Back</div>
+  </div>
+</div>
+
+<script>
+  function flipCard(card) {
+    card.querySelector('.card-inner').style.transform = 'rotateY(180deg)';
+    setTimeout(function() {
+      card.querySelector('.card-inner').style.transform = 'rotateY(0deg)';
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>

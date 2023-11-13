@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draggable Squares</title>
+  <style>
+    .container {
+      width: 400px;
+      height: 400px;
+      position: relative;
+      border: 2px solid #000;
+      overflow: hidden;
+    }
+
+    .square {
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      position: absolute;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="dragContainer">
+  <div class="square" id="square1" draggable="true" onmousedown="startDragging(event)"></div>
+  <div class="square" id="square2" draggable="true" onmousedown="startDragging(event)"></div>
+</div>
+
+<script>
+  var activeSquare = null;
+  var initialX;
+  var initialY;
+
+  function startDragging(e) {
+    activeSquare = e.target;
+    initialX = e.clientX - activeSquare.getBoundingClientRect().left;
+    initialY = e.clientY - activeSquare.getBoundingClientRect().top;
+
+    document.addEventListener('mousemove', dragSquare);
+    document.addEventListener('mouseup', stopDragging);
+  }
+
+  function dragSquare(e) {
+    e.preventDefault();
+
+    if (activeSquare) {
+      var newX = e.clientX - initialX;
+      var newY = e.clientY - initialY;
+
+      var container = document.getElementById('dragContainer');
+      var maxX = container.clientWidth - activeSquare.clientWidth;
+      var maxY = container.clientHeight - activeSquare.clientHeight;
+
+      newX = Math.min(maxX, Math.max(0, newX));
+      newY = Math.min(maxY, Math.max(0, newY));
+
+      activeSquare.style.left = newX + 'px';
+      activeSquare.style.top = newY + 'px';
+    }
+  }
+
+  function stopDragging() {
+    activeSquare = null;
+    document.removeEventListener('mousemove', dragSquare);
+    document.removeEventListener('mouseup', stopDragging);
+  }
+</script>
+
+</body>
+</html>
